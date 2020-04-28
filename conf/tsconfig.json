@@ -1,0 +1,5 @@
+{
+  "LogFilePath":"../createlog/dig.log",
+  "MaxGogroutineNumber":15,
+  "LogConsumerChanNumer": 200
+}
