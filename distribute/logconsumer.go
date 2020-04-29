@@ -4,11 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"mayipashu/conf"
 	"mayipashu/defs"
 	"mayipashu/iface"
-	"mayipashu/conf"
 	"os"
-	"time"
 )
 
 //从log日志文件中获取日志，发送到logchan
@@ -16,13 +15,17 @@ import (
 //日志消费者
 type LogConsumer struct{
 	logC chan defs.LogData
+	s    iface.IServer
 }
 
 func NewLogConsumer()iface.ILogConsumer {
-	return LogConsumer{logC:make(chan defs.LogData,conf.LogConfObj.LogConsumerChanNumer)}
+	//return &LogConsumer{logC:make(chan defs.LogData,conf.LogConfObj.LogConsumerChanNumer,s)}
+	return &LogConsumer{
+		logC: make(chan defs.LogData,conf.LogConfObj.LogConsumerChanNumer),
+	}
 }
 
-func (l LogConsumer) GetLogToChan ()  {
+func (l *LogConsumer) GetLogToChan ()  {
 	f,err := os.Open(conf.LogConfObj.LogFilePath)
 	if err != nil {
 		fmt.Println("【ERROR】",err)
@@ -38,9 +41,11 @@ func (l LogConsumer) GetLogToChan ()  {
 		line,err := r.ReadString('\n')
 		if err != nil {
 			if err == io.EOF {
-				//log日志文件中没有内容暂停5秒继续获取
-				time.Sleep(5*time.Second)
-				continue
+				if conf.LogConfObj.TimeInterval <= 0 {
+					l.s.Stop()
+				}
+				//没有日志了结束定时任务
+				return
 			}
 			fmt.Println("【ERROR】",err)
 			panic("")
@@ -55,10 +60,19 @@ func (l LogConsumer) GetLogToChan ()  {
 
 }
 
-func (l LogConsumer) GetLogChan() chan defs.LogData {
+func (l *LogConsumer) GetLogChan() chan defs.LogData {
 	return l.logC
 }
 
-func (l LogConsumer) Close () {
+func (l *LogConsumer) Close () {
 	close(l.GetLogChan())
 }
+
+func (l *LogConsumer) Start(){
+	l.GetLogToChan()
+}
+
+func (l *LogConsumer) SetServeObject (s iface.IServer) {
+	l.s = s
+}
+

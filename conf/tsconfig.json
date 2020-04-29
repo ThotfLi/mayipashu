@@ -1,5 +1,6 @@
 {
   "LogFilePath":"../createlog/dig.log",
   "MaxGogroutineNumber":15,
-  "LogConsumerChanNumer": 200
+  "LogConsumerChanNumer": 200,
+  "TimeInterval": 3
 }

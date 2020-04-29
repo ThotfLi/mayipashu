@@ -13,4 +13,9 @@ type ILogConsumer interface {
 
 	//关闭Chan
 	Close ()
+
+	//开始任务
+	Start()
+
+	SetServeObject (s IServer)
 }
