@@ -12,6 +12,10 @@ type LogConf struct {
 	MaxGogroutineNumber  uint32 //log解析的goroutine数量
 	LogConsumerChanNumer uint32 //logConsumerChan的长度
 	TimeInterval	     time.Duration  //定时任务时间
+
+	MinTaskPool          uint32
+	MaxTaskPool          uint32
+
 }
 
 var LogConfObj LogConf
@@ -23,6 +27,8 @@ func init() {
 		MaxGogroutineNumber:  10,
 		LogConsumerChanNumer: 10,
 		TimeInterval:5,
+		MinTaskPool:2,
+		MaxTaskPool:10,
 	}
 }
 

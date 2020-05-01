@@ -6,6 +6,7 @@ import (
 	"mayipashu/distribute"
 	"mayipashu/iface"
 	"mayipashu/conf"
+	"mayipashu/parser"
 	"os"
 )
 
@@ -35,7 +36,7 @@ func NewServer() iface.IServer {
 }
 
 func (s *Server) Start () {
-
+	s.Serve()
 }
 
 func (s *Server) Stop () {
@@ -59,6 +60,9 @@ func (s *Server) Serve () {
 		s.logConsumer.SetServeObject(s)
 		go s.logConsumer.Start()
 	}
+
+	p := parser.NewOneParser(s.GetLogDataChan(),1)
+	p.RunOneParser()
 
 }
 
