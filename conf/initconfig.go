@@ -9,7 +9,7 @@ import (
 
 type LogConf struct {
 	LogFilePath          string //log文件位置
-	MaxGogroutineNumber  uint32 //log解析的goroutine数量
+	MaxGogroutineNumber  uint32 //log读取的goroutine数量
 	LogConsumerChanNumer uint32 //logConsumerChan的长度
 	TimeInterval	     time.Duration  //定时任务时间
 

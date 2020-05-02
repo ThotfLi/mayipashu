@@ -6,8 +6,8 @@ type IParserManager interface {
 	//开启任务处理池
 	RunWorkerPool()
 
-	//回收任务池
-	StopWorkerPool()
+	//停止一个worker
+	StopOneWorker(pid int)
 
 	ReturnLogChan() 	chan defs.LogData
 	ReturnDoneChan() 	chan struct{}
