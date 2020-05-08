@@ -15,6 +15,8 @@ type LogConf struct {
 
 	MinTaskPool          uint32
 	MaxTaskPool          uint32
+	AfterTimeAddWorker   time.Duration
+	AfterTimeDelWorker   time.Duration
 
 }
 
@@ -29,12 +31,14 @@ func init() {
 		TimeInterval:5,
 		MinTaskPool:2,
 		MaxTaskPool:10,
+		AfterTimeAddWorker:1,
+		AfterTimeDelWorker:3,
 	}
 }
 
 //通过配置文件初始化配置
 func InitLogConf() error {
-	c, err := ioutil.ReadFile("./tsconfig.json")
+	c, err := ioutil.ReadFile("../conf/tsconfig.json")
 	if err != nil {
 		fmt.Println("Readall err:", err)
 		return err

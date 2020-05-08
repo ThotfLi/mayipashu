@@ -5,15 +5,18 @@ import "mayipashu/defs"
 type IParserManager interface {
 	//开启任务处理池
 	RunWorkerPool()
+	//关闭池
+	StopManager()
 
 	//停止一个worker
 	StopOneWorker(pid int)
+	StopAllWorker()
 
 	ReturnLogChan() 	chan defs.LogData
 	ReturnDoneChan() 	chan struct{}
 
-	//正在运行的Parser数量
-	Len()               int
+	//正在运行的worker数量
+	ParserCount ()		int
 
 	//添加解析器到切片，管理解析器使用切片[]parser，方面管理worker
 	//AppendParser()

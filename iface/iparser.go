@@ -13,4 +13,10 @@ type IParser interface {
 
 	//回收解析器资源
 	Close()
+
+	//将暂停中的解析器重新激活
+	Activation ()
+
+	//获取Parser状态
+	GetState() int
 }

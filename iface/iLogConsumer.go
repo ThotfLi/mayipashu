@@ -17,5 +17,10 @@ type ILogConsumer interface {
 	//开始任务
 	Start()
 
+	//在当前对象中设置server对象
 	SetServeObject (s IServer)
+
+	//任务状态
+	GetStatus ()  int
+	SetStatus(status int)
 }

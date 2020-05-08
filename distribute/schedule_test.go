@@ -20,5 +20,6 @@ func TestMain(m *testing.M){
 }
 
 func TestWork(t *testing.T){
-	t.Run("scheduletask",testNewScheduleTask)
+	//t.Run("scheduletask",testNewScheduleTask)
+	t.Run("abc",testLogConsumer_GetLogToChan)
 }

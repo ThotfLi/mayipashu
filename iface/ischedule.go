@@ -16,4 +16,7 @@ type ISchedule interface {
 
 	//返回日志获取通道，要交给任务解析goroutine读取任务
 	GetLogChan () chan defs.LogData
+
+	//停止定时任务器
+	StopSchedule ()
 }
